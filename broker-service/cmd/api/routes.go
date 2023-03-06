@@ -25,9 +25,9 @@ func (app *Config) routes() http.Handler {
 	//Can be used to check health status of service
 	mux.Use(middleware.Heartbeat("/ping"))
 
-	mux.Post("/", app.Broker)
-	mux.Post("/handle", app.HandleSubmission)
-	mux.Post("/log-grpc", app.LogViaGRPC)
+	mux.Post("/api", app.Broker)
+	mux.Post("/api/handle", app.HandleSubmission)
+	mux.Post("/api/log-grpc", app.LogViaGRPC)
 
 	return mux
 }

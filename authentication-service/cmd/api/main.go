@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	_ "github.com/jackc/pgconn"
@@ -30,13 +31,14 @@ func main() {
 	//connect to DB
 	conn := connectToDB()
 	if conn == nil {
-		log.Panic("Cn't connect to Database")
+		log.Panic("Can't connect to Database")
 	}
 
 	//setup config
 	app := Config{
 		Client: &http.Client{},
 	}
+	app.setupRepo(conn)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", port),
@@ -64,9 +66,11 @@ func openDB(dsn string) (*sql.DB, error) {
 
 func connectToDB() *sql.DB {
 	dsn := os.Getenv("DSN")
+	pgPassword := os.Getenv("PGPASSWORD")
+	connectionString := strings.Replace(dsn, "PGPASSWORD", pgPassword, 1)
 
 	for {
-		connection, err := openDB(dsn)
+		connection, err := openDB(connectionString)
 		if err != nil {
 			log.Println("Postgress not yet ready ...")
 			counts++

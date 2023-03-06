@@ -17,7 +17,12 @@ spec:
           image: 'shafeeanwar/authentication-service:1.0.0'
           env:
             - name: DSN
-              value: 'host=host.docker.internal port=5432 user=postgres password=password dbname=users sslmode=disable timezone=UTC connect_timeout=5'
+              value: 'host=postgres-service port=5432 user=postgres password=PGPASSWORD dbname=users sslmode=disable timezone=UTC connect_timeout=5'
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
           ports:
             - containerPort: 80
 

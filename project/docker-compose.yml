@@ -1,17 +1,17 @@
 version: '3'
 services:
 
-  caddy:
-    image: shafeeanwar/micro-caddy:1.0.0
-    deploy:
-      mode: replicated
-      replicas: 1
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
+  # caddy:
+  #   image: shafeeanwar/micro-caddy:1.0.0
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   volumes:
+  #     - caddy_data:/data
+  #     - caddy_config:/config
 
   frontend-service:
     build:
@@ -123,7 +123,7 @@ services:
     volumes:
       - ./db-data/rabbitmq/:/var/lib/rabbitmq/
 
-volumes:
-  caddy_data:
-    external: true
-  caddy_config:
+# volumes:
+#   caddy_data:
+#     external: true
+#   caddy_config:

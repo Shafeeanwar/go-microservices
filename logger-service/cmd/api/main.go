@@ -8,6 +8,7 @@ import (
 	"net"
 	"net/http"
 	"net/rpc"
+	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -90,10 +91,11 @@ func (app *Config) rpcListen() error {
 func connectToMongo() (*mongo.Client, error) {
 	// create connection options
 	clientOptions := options.Client().ApplyURI(mongoURL)
-	// clientOptions.SetAuth(options.Credential{
-	// 	Username: "admin",
-	// 	Password: "password",
-	// })
+	mongoPassword := os.Getenv("MONGO_INITDB_ROOT_PASSWORD")
+	clientOptions.SetAuth(options.Credential{
+		Username: "admin",
+		Password: mongoPassword,
+	})
 
 	//connect
 	c, err := mongo.Connect(context.TODO(), clientOptions)

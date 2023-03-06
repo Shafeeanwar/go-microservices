@@ -27,6 +27,8 @@ metadata:
 spec:
   selector:
     app: mailhog
+    # NodePort Selected for viewing emails, mailhog is local mail server and should be replaced
+  type: NodePort
   ports:
     - protocol: TCP
       name: smtp-port
@@ -36,3 +38,4 @@ spec:
       name: web-port
       port: 8025
       targetPort: 8025
+      nodePort: 30103

@@ -26,6 +26,7 @@ metadata:
 spec:
   selector:
     app: broker-service
+  type: ClusterIP
   ports:
     - protocol: TCP
       name: main-port

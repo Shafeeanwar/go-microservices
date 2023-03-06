@@ -14,7 +14,13 @@ spec:
     spec:
       containers:
         - name: logger-service
-          image: 'shafeeanwar/logger-service:1.0.0'
+          image: 'shafeeanwar/logger-service:1.0.1'
+          env:
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongopassword
+                  key: MONGO_PASSWORD
           ports:
             - containerPort: 80
             - containerPort: 5001

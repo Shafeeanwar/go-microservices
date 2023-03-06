@@ -7,6 +7,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"net/rpc"
@@ -24,8 +25,8 @@ type RequestPayload struct {
 }
 
 type MailPayload struct {
-	Fom     string `json:"email"`
-	To      string `json:"password"`
+	Fom     string `json:"from"`
+	To      string `json:"to"`
 	Subject string `json:"subject"`
 	Message string `json:"message"`
 }
@@ -59,8 +60,13 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("inside handle submission")
+	fmt.Println(requestPayload)
+
 	switch requestPayload.Action {
 	case "auth":
+		fmt.Println("inside auth")
+		fmt.Println(requestPayload.Auth)
 		app.authenticate(w, requestPayload.Auth)
 	case "log":
 		//app.logItem(w, requestPayload.Log)
@@ -76,6 +82,9 @@ func (app *Config) HandleSubmission(w http.ResponseWriter, r *http.Request) {
 func (app *Config) authenticate(w http.ResponseWriter, a AuthPayload) {
 	//create json we'll send to auth service
 	jsonData, _ := json.MarshalIndent(a, "", "\t")
+
+	fmt.Println("inside authenticate")
+	fmt.Println(jsonData)
 
 	//call service
 	request, err := http.NewRequest("POST", "http://authentication-service/authenticate", bytes.NewBuffer(jsonData))

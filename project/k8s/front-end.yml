@@ -17,7 +17,8 @@ spec:
           image: 'shafeeanwar/frontend-service:1.0.2'
           env:
             - name: BROKER_URL
-              value: 'http://broker-service.info'
+              # change it to ingress IP address
+              value: ''
           ports:
             - containerPort: 8081
 
@@ -29,8 +30,9 @@ metadata:
 spec:
   selector:
     app: frontend-service
+  type: ClusterIP
   ports:
     - protocol: TCP
       name: main-port
       port: 8081
-      targetPort: 808
+      targetPort: 8081

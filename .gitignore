@@ -1,6 +1,6 @@
 go-micro.code-workspace
-/project/caddy_config/*
-/project/caddy_data/*
-/db-data/mongo/*
-/db-data/postgres/*
-/db-data/rabbitmq/*
+project/caddy_config/*
+project/caddy_data/*
+projectdb-data/mongo/*
+project/db-data/postgres/*
+project/db-data/rabbitmq/*
